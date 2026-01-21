@@ -664,7 +664,7 @@
         let html5QrcodeScanner = null;
         let isScanning = false;
         let registeredCount = 0;
-        let scriptUrl = 'https://script.google.com/macros/s/AKfycbzeYoRZ09zrD2MCW5qA2cmSmRSFBdsTjnfIlbHvWNJDBcQbdVDeBs7oZofFJaHI6cB8/exec';
+        let scriptUrl = 'https://script.google.com/macros/s/AKfycbw4eawqeiGbidF-a4O1ANHY_iofNQIOnE-7vF2ZAZBcjHOC9qKsoCggMkgJVN06Crno-Q/exec';
         let currentUser = '';
         let currentEvent = ''; // Evento selezionato
         let currentEventName = ''; // Nome completo evento
@@ -871,25 +871,27 @@
                 return;
             }
 
-            updateActivity(); // Aggiorna timestamp attività
+            if (!currentEvent) {
+                showStatus('❌ Evento non selezionato!', 'error');
+                return;
+            }
+
+            updateActivity();
 
             showLoader(true);
             showStatus('⏳ Registrazione in corso...', 'info');
 
             try {
-                const response = await fetch(scriptUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        email: email.trim().toLowerCase(),
-                        operator: currentUser,
-                        event: currentEvent
-                    })
+                // Usa GET con parametri URL invece di POST per evitare CORS preflight
+                const url = new URL(scriptUrl);
+                url.searchParams.append('email', email.trim().toLowerCase());
+                url.searchParams.append('event', currentEvent);
+                url.searchParams.append('operator', currentUser);
+
+                const response = await fetch(url.toString(), {
+                    method: 'GET'
                 });
 
-                // Leggi la risposta
                 const result = await response.json();
 
                 if (result.success) {
