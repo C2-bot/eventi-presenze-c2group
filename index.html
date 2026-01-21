@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[HP] | Workstation Day con C2 Group: App Rilevazione Presenze</title>
+    <title>[MASTRO] Evento C2 Group</title>
     <style>
         * {
             margin: 0;
@@ -167,6 +167,22 @@
         }
 
         .input-group input:focus {
+            outline: none;
+            border-color: #0074C5;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background: white;
+            cursor: pointer;
+        }
+
+        .input-group select:focus {
             outline: none;
             border-color: #0074C5;
         }
@@ -495,7 +511,7 @@
                 <button class="logout-btn" onclick="logout()">🚪 Logout</button>
             </div>
             <img src="logo-bianco.png" alt="C2 Group" class="header-logo">
-            <h1>[HP] | Workstation Day con C2 Group: App Rilevazione Presenze</h1>
+            <h1 id="eventTitle">[MASTRO] Evento C2 Group</h1>
             <p>App di Rilevazione Presenze</p>
         </div>
 
@@ -514,6 +530,15 @@
                     <div class="input-group">
                         <label for="loginPassword">🔒 Password</label>
                         <input type="password" id="loginPassword" placeholder="Inserisci password" autocomplete="current-password">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="eventSelect">📋 Seleziona Evento</label>
+                        <select id="eventSelect" class="event-select">
+                            <option value="">-- Seleziona evento --</option>
+                            <option value="HP">HP | Laboratori Professionali</option>
+                            <option value="CIOFS">CIOFS | Educare all'Intelligenza Artificiale</option>
+                        </select>
                     </div>
 
                     <button class="button button-primary" onclick="handleLogin()">
@@ -639,8 +664,10 @@
         let html5QrcodeScanner = null;
         let isScanning = false;
         let registeredCount = 0;
-        let scriptUrl = 'https://script.google.com/macros/s/AKfycbyfiowm-kdI2L_Owt3-_ausD9FrTM5YwUbe6TUKe-D9I89fdQ-hXhyKDJvNxnEkDyyE/exec';
+        let scriptUrl = 'https://script.google.com/macros/s/AKfycbw4eawqeiGbidF-a4O1ANHY_iofNQIOnE-7vF2ZAZBcjHOC9qKsoCggMkgJVN06Crno-Q/exec';
         let currentUser = '';
+        let currentEvent = ''; // Evento selezionato
+        let currentEventName = ''; // Nome completo evento
         let lastActivityTime = Date.now();
         let timeoutInterval = null;
         let registeredLeads = []; // Array per memorizzare i lead registrati
@@ -651,13 +678,17 @@
             // Controlla se c'è una sessione salvata
             const savedUser = localStorage.getItem('loggedUser');
             const savedTime = localStorage.getItem('loginTime');
+            const savedEvent = localStorage.getItem('selectedEvent');
+            const savedEventName = localStorage.getItem('selectedEventName');
 
-            if (savedUser && savedTime) {
+            if (savedUser && savedTime && savedEvent) {
                 const elapsedMinutes = (Date.now() - parseInt(savedTime)) / (1000 * 60);
                 
                 if (elapsedMinutes < TIMEOUT_MINUTES) {
                     // Sessione valida
                     currentUser = savedUser;
+                    currentEvent = savedEvent;
+                    currentEventName = savedEventName || savedEvent;
                     showScanner();
                     startTimeoutMonitor();
                 } else {
@@ -670,16 +701,27 @@
         function handleLogin() {
             const username = document.getElementById('loginUsername').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
+            const eventCode = document.getElementById('eventSelect').value;
 
             if (!username || !password) {
                 showLoginStatus('Inserisci username e password', 'error');
                 return;
             }
 
+            if (!eventCode) {
+                showLoginStatus('Seleziona un evento', 'error');
+                return;
+            }
+
             if (VALID_USERS[username] && VALID_USERS[username] === password) {
                 // Login riuscito
                 currentUser = username;
+                currentEvent = eventCode;
+                currentEventName = document.getElementById('eventSelect').options[document.getElementById('eventSelect').selectedIndex].text;
+                
                 localStorage.setItem('loggedUser', username);
+                localStorage.setItem('selectedEvent', eventCode);
+                localStorage.setItem('selectedEventName', currentEventName);
                 localStorage.setItem('loginTime', Date.now().toString());
                 
                 showLoginStatus('✅ Accesso effettuato!', 'success');
@@ -701,13 +743,18 @@
             document.getElementById('currentUser').textContent = currentUser;
             document.getElementById('operatorName').textContent = currentUser;
             
-            // Carica lead salvati
+            // Mostra nome evento nell'header
+            document.getElementById('eventTitle').textContent = currentEventName;
+            
+            // Carica lead salvati per questo evento
             loadLeadsFromStorage();
         }
 
         function logout() {
             localStorage.removeItem('loggedUser');
             localStorage.removeItem('loginTime');
+            localStorage.removeItem('selectedEvent');
+            localStorage.removeItem('selectedEventName');
             // NON rimuoviamo registeredLeads per mantenerli anche dopo logout
             clearInterval(timeoutInterval);
             
@@ -717,12 +764,15 @@
             document.getElementById('userInfo').style.display = 'none';
             document.getElementById('loginUsername').value = '';
             document.getElementById('loginPassword').value = '';
+            document.getElementById('eventSelect').value = '';
             
             if (isScanning) {
                 stopScanner();
             }
             
             currentUser = '';
+            currentEvent = '';
+            currentEventName = '';
             showLoginStatus('Logout effettuato', 'info');
         }
 
@@ -829,19 +879,26 @@
             try {
                 const response = await fetch(scriptUrl, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
                         email: email.trim().toLowerCase(),
-                        operator: currentUser
+                        operator: currentUser,
+                        event: currentEvent
                     })
                 });
 
-                registeredCount++;
-                updateStats(email);
-                showStatus(`✅ Presenza registrata per: ${email}`, 'success');
+                // Leggi la risposta
+                const result = await response.json();
+
+                if (result.success) {
+                    registeredCount++;
+                    updateStats(email);
+                    showStatus(`✅ Presenza registrata per: ${email}`, 'success');
+                } else {
+                    showStatus(`⚠️ ${result.message}`, 'warning');
+                }
                 
                 setTimeout(() => {
                     if (!isScanning) {
