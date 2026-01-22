@@ -401,27 +401,36 @@
 
         .lead-info {
             flex: 1;
+            min-width: 0; /* Permette word-wrap */
         }
 
         .lead-email {
             font-weight: 600;
             color: #333;
             font-size: 14px;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.4;
         }
 
         .lead-time {
             font-size: 12px;
-            color: #999;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .lead-badge {
-            background: #d4edda;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             color: #155724;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(21, 87, 36, 0.1);
         }
 
         .empty-state {
@@ -495,6 +504,9 @@
 
             .user-info {
                 font-size: 10px;
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .header-logo {
@@ -664,7 +676,7 @@
         let html5QrcodeScanner = null;
         let isScanning = false;
         let registeredCount = 0;
-        let scriptUrl = 'https://script.google.com/macros/s/AKfycbzeYoRZ09zrD2MCW5qA2cmSmRSFBdsTjnfIlbHvWNJDBcQbdVDeBs7oZofFJaHI6cB8/exec';
+        let scriptUrl = 'https://script.google.com/macros/s/AKfycbw4eawqeiGbidF-a4O1ANHY_iofNQIOnE-7vF2ZAZBcjHOC9qKsoCggMkgJVN06Crno-Q/exec';
         let currentUser = '';
         let currentEvent = ''; // Evento selezionato
         let currentEventName = ''; // Nome completo evento
@@ -972,17 +984,21 @@
         }
 
         function addLeadToList(email, timestamp) {
-            // Verifica se il lead è già presente
-            const existingLead = registeredLeads.find(lead => lead.email === email);
+            // Verifica se il lead è già presente per QUESTO evento
+            const existingLead = registeredLeads.find(lead => 
+                lead.email === email && lead.event === currentEvent
+            );
             if (existingLead) {
                 return; // Non aggiungere duplicati
             }
 
-            // Aggiungi nuovo lead
+            // Aggiungi nuovo lead con info evento
             const lead = {
                 email: email,
                 timestamp: timestamp,
-                timeString: timestamp.toLocaleString('it-IT')
+                timeString: timestamp.toLocaleString('it-IT'),
+                event: currentEvent,
+                eventName: currentEventName
             };
             
             registeredLeads.unshift(lead); // Aggiungi in cima alla lista
@@ -998,21 +1014,24 @@
             const listContainer = document.getElementById('leadsList');
             const leadsCountEl = document.getElementById('leadsCount');
             
-            if (registeredLeads.length === 0) {
+            // Filtra solo i lead dell'evento corrente
+            const currentEventLeads = registeredLeads.filter(lead => lead.event === currentEvent);
+            
+            if (currentEventLeads.length === 0) {
                 listContainer.innerHTML = `
                     <div class="empty-state">
                         <p>📭 Nessuna presenza registrata ancora</p>
-                        <small>I lead appariranno qui dopo la prima scansione</small>
+                        <small>I lead per ${currentEventName} appariranno qui dopo la prima scansione</small>
                     </div>
                 `;
-                leadsCountEl.textContent = 'Nessun lead registrato';
+                leadsCountEl.textContent = 'Nessun lead registrato per questo evento';
                 return;
             }
 
-            leadsCountEl.textContent = `${registeredLeads.length} lead registrat${registeredLeads.length === 1 ? 'o' : 'i'}`;
+            leadsCountEl.textContent = `${currentEventLeads.length} lead registrat${currentEventLeads.length === 1 ? 'o' : 'i'} per ${currentEventName}`;
 
             let html = '';
-            registeredLeads.forEach((lead, index) => {
+            currentEventLeads.forEach((lead, index) => {
                 html += `
                     <div class="lead-item" data-email="${lead.email}">
                         <div class="lead-info">
@@ -1062,7 +1081,9 @@
             const savedLeads = localStorage.getItem('registeredLeads');
             if (savedLeads) {
                 registeredLeads = JSON.parse(savedLeads);
-                registeredCount = registeredLeads.length;
+                // Conta solo i lead dell'evento corrente
+                const currentEventLeads = registeredLeads.filter(lead => lead.event === currentEvent);
+                registeredCount = currentEventLeads.length;
                 document.getElementById('registeredCount').textContent = registeredCount;
                 renderLeadsList();
             }
