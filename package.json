@@ -1,0 +1,19 @@
+{
+  "name": "c2-rilevazione-presenze",
+  "version": "2.1.0",
+  "description": "Sistema multi-evento per rilevazione presenze C2 Group",
+  "private": true,
+  "scripts": {
+    "serve": "npx http-server . -p 8080 -o",
+    "clasp:login": "npx @google/clasp login",
+    "clasp:push": "npx @google/clasp push",
+    "clasp:pull": "npx @google/clasp pull",
+    "clasp:status": "npx @google/clasp status",
+    "clasp:deploy": "npx @google/clasp deploy -d \"Deploy da locale\"",
+    "backup": "bash scripts/backup.sh",
+    "new-event": "node scripts/new-event.js"
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
+}

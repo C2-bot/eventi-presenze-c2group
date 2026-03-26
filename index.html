@@ -3,618 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[MASTRO] Evento C2 Group</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #0074C5 0%, #005a9e 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 500px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0074C5 0%, #005a9e 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-        }
-
-        .header-logo {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .user-info {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 12px;
-            opacity: 0.9;
-            text-align: right;
-        }
-
-        .logout-btn {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 11px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .content {
-            padding: 30px;
-        }
-
-        /* LOGIN FORM */
-        .login-container {
-            display: block;
-        }
-
-        .login-container.hidden {
-            display: none;
-        }
-
-        .login-form {
-            max-width: 350px;
-            margin: 0 auto;
-        }
-
-        .login-icon {
-            text-align: center;
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .login-title {
-            text-align: center;
-            font-size: 22px;
-            color: #333;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        /* DISCLAIMER */
-        .disclaimer {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .disclaimer-title {
-            font-weight: 700;
-            color: #0074C5;
-            margin-bottom: 12px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .disclaimer-text {
-            font-size: 12px;
-            line-height: 1.6;
-            color: #666;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-
-        .disclaimer-footer {
-            font-size: 11px;
-            color: #999;
-            text-align: center;
-            font-weight: 600;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 15px;
-            margin-top: 15px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #0074C5;
-        }
-
-        .input-group select {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            background: white;
-            cursor: pointer;
-        }
-
-        .input-group select:focus {
-            outline: none;
-            border-color: #0074C5;
-        }
-
-        /* SCANNER AREA */
-        #scannerArea {
-            display: none;
-        }
-
-        #scannerArea.show {
-            display: block;
-        }
-
-        #reader {
-            width: 100%;
-            border: 3px dashed #0074C5;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .button {
-            width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .button-primary {
-            background: linear-gradient(135deg, #F55D3E 0%, #E54D2E 100%);
-            color: white;
-        }
-
-        .button-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(245, 93, 62, 0.4);
-        }
-
-        .button-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .button-secondary {
-            background: #f0f0f0;
-            color: #333;
-            margin-top: 10px;
-        }
-
-        .button-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .status {
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-align: center;
-            display: none;
-        }
-
-        .status.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .status-success {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #c3e6cb;
-        }
-
-        .status-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #f5c6cb;
-        }
-
-        .status-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 2px solid #ffeaa7;
-        }
-
-        .status-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 2px solid #bee5eb;
-        }
-
-        .manual-input {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .manual-input.show {
-            display: block;
-        }
-
-        .stats {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .stats h3 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            color: #666;
-        }
-
-        .stat-value {
-            font-weight: 700;
-            color: #0074C5;
-            font-size: 18px;
-        }
-
-        /* LEADS SECTION */
-        .leads-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .leads-section h3 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .search-box {
-            margin-bottom: 15px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #0074C5;
-        }
-
-        .leads-count {
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .leads-list {
-            max-height: 400px;
-            overflow-y: auto;
-            background: white;
-            border-radius: 8px;
-            padding: 10px;
-        }
-
-        .lead-item {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s;
-        }
-
-        .lead-item:hover {
-            background: #f0f7ff;
-        }
-
-        .lead-item:last-child {
-            border-bottom: none;
-        }
-
-        .lead-info {
-            flex: 1;
-            min-width: 0; /* Permette word-wrap */
-        }
-
-        .lead-email {
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-            margin-bottom: 5px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            line-height: 1.4;
-        }
-
-        .lead-time {
-            font-size: 12px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .lead-badge {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            color: #155724;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 11px;
-            font-weight: 700;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(21, 87, 36, 0.1);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .empty-state p {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .empty-state small {
-            font-size: 13px;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 30px 20px;
-            color: #999;
-        }
-
-        /* Scrollbar personalizzata */
-        .leads-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .leads-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .leads-list::-webkit-scrollbar-thumb {
-            background: #0074C5;
-            border-radius: 10px;
-        }
-
-        .leads-list::-webkit-scrollbar-thumb:hover {
-            background: #005a9e;
-        }
-
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0074C5;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
-        }
-
-        .loader.show {
-            display: block;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 20px;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-
-            .user-info {
-                font-size: 10px;
-                max-width: 200px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .header-logo {
-                max-width: 150px;
-            }
-        }
-    </style>
+    <title>Evento C2 Group | Rilevazione Presenze</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="user-info" id="userInfo" style="display: none;">
-                <div>👤 <span id="currentUser"></span></div>
-                <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+                <div><span id="currentUser"></span></div>
+                <button class="logout-btn" onclick="Auth.logout()">Logout</button>
             </div>
-            <img src="logo-bianco.png" alt="C2 Group" class="header-logo">
-            <h1 id="eventTitle">[MASTRO] Evento C2 Group</h1>
+            <img src="assets/logo-bianco.png" alt="C2 Group" class="header-logo">
+            <h1 id="eventTitle">Evento C2 Group</h1>
             <p>App di Rilevazione Presenze</p>
         </div>
 
         <div class="content">
-            <!-- LOGIN SECTION -->
+            <!-- LOGIN -->
             <div class="login-container" id="loginContainer">
                 <div class="login-form">
-                    <div class="login-icon">🔐</div>
                     <h2 class="login-title">Accesso Operatori</h2>
-                    
+
                     <div class="input-group">
-                        <label for="loginUsername">👤 Username (Email)</label>
+                        <label for="loginUsername">Username (Email)</label>
                         <input type="email" id="loginUsername" placeholder="esempio@c2group.it" autocomplete="username">
                     </div>
 
                     <div class="input-group">
-                        <label for="loginPassword">🔒 Password</label>
+                        <label for="loginPassword">Password</label>
                         <input type="password" id="loginPassword" placeholder="Inserisci password" autocomplete="current-password">
                     </div>
 
                     <div class="input-group">
-                        <label for="eventSelect">📋 Seleziona Evento</label>
-                        <select id="eventSelect" class="event-select">
+                        <label for="eventSelect">Seleziona Evento</label>
+                        <select id="eventSelect">
                             <option value="">-- Seleziona evento --</option>
-                            <option value="HP">HP | Laboratori Professionali</option>
-                            <option value="CIOFS">CIOFS | Educare all'Intelligenza Artificiale</option>
-                            <option value="IACATANIA">IA Sicilia - Catania</option>
-                            <option value="IAPALERMO">IA Sicilia - Palermo</option>
+                            <!-- Popolato dinamicamente da config.js -->
                         </select>
                     </div>
 
-                    <button class="button button-primary" onclick="handleLogin()">
-                        🔓 Accedi
-                    </button>
+                    <button class="button button-primary" onclick="Auth.handleLogin()">Accedi</button>
 
                     <div class="status" id="loginStatus"></div>
 
-                    <!-- Disclaimer C2 Group -->
                     <div class="disclaimer">
-                        <p class="disclaimer-title">🔒 Privacy e Sicurezza</p>
+                        <p class="disclaimer-title">Privacy e Sicurezza</p>
                         <p class="disclaimer-text">
-                            Questa applicazione è riservata esclusivamente al personale autorizzato di C2 Group. 
-                            Tutti i dati raccolti sono trattati nel rispetto della normativa GDPR e utilizzati 
-                            unicamente per la gestione delle presenze all'evento. L'accesso non autorizzato è 
+                            Questa applicazione è riservata esclusivamente al personale autorizzato di C2 Group.
+                            Tutti i dati raccolti sono trattati nel rispetto della normativa GDPR e utilizzati
+                            unicamente per la gestione delle presenze all'evento. L'accesso non autorizzato è
                             vietato e può comportare conseguenze legali.
                         </p>
-                        <p class="disclaimer-footer">
-                            © 2025 C2 S.r.l. - Tutti i diritti riservati
-                        </p>
+                        <p class="disclaimer-footer">&copy; 2025-2026 C2 S.r.l. - Tutti i diritti riservati</p>
                     </div>
                 </div>
             </div>
 
-            <!-- SCANNER SECTION (Hidden by default) -->
+            <!-- SCANNER -->
             <div id="scannerArea">
-                <!-- Loader -->
                 <div class="loader" id="loader"></div>
-
-                <!-- Messaggio di stato -->
                 <div class="status" id="statusMessage"></div>
 
-                <!-- Area Scanner -->
                 <div id="scannerControls">
                     <div id="reader"></div>
-                    
-                    <button class="button button-primary" id="startButton" onclick="startScanner()">
-                        📷 Avvia Scanner
-                    </button>
-                    
-                    <button class="button button-secondary" id="stopButton" onclick="stopScanner()" style="display: none;">
-                        ⏹️ Ferma Scanner
-                    </button>
 
-                    <button class="button button-secondary" onclick="toggleManualInput()">
-                        ⌨️ Inserimento Manuale Email
-                    </button>
+                    <button class="button button-primary" id="startButton" onclick="Scanner.start()">Avvia Scanner</button>
+                    <button class="button button-secondary" id="stopButton" onclick="Scanner.stop()" style="display: none;">Ferma Scanner</button>
+                    <button class="button button-secondary" onclick="UI.toggleManualInput()">Inserimento Manuale Email</button>
 
-                    <!-- Input manuale -->
                     <div class="manual-input" id="manualInput">
                         <div class="input-group">
                             <label for="emailInput">Email Partecipante:</label>
                             <input type="email" id="emailInput" placeholder="esempio@email.com" />
                         </div>
-                        <button class="button button-primary" onclick="registerManualEmail()">
-                            ✅ Registra Presenza
-                        </button>
+                        <button class="button button-primary" onclick="Registration.registerManual()">Registra Presenza</button>
                     </div>
 
-                    <!-- Statistiche -->
                     <div class="stats">
-                        <h3>📊 Statistiche Sessione</h3>
+                        <h3>Statistiche Sessione</h3>
                         <div class="stat-item">
                             <span class="stat-label">Presenze registrate:</span>
                             <span class="stat-value" id="registeredCount">0</span>
@@ -629,26 +95,15 @@
                         </div>
                     </div>
 
-                    <!-- Lista Lead Registrati -->
                     <div class="leads-section">
-                        <h3>👥 Lead Registrati</h3>
-                        
+                        <h3>Lead Registrati</h3>
                         <div class="search-box">
-                            <input 
-                                type="text" 
-                                id="searchLeads" 
-                                placeholder="🔍 Cerca per email o nome..." 
-                                onkeyup="filterLeads()"
-                            />
+                            <input type="text" id="searchLeads" placeholder="Cerca per email..." onkeyup="Registration.filterLeads()" />
                         </div>
-
-                        <div class="leads-count">
-                            <span id="leadsCount">Nessun lead registrato</span>
-                        </div>
-
+                        <div class="leads-count"><span id="leadsCount">Nessun lead registrato</span></div>
                         <div class="leads-list" id="leadsList">
                             <div class="empty-state">
-                                <p>📭 Nessuna presenza registrata ancora</p>
+                                <p>Nessuna presenza registrata ancora</p>
                                 <small>I lead appariranno qui dopo la prima scansione</small>
                             </div>
                         </div>
@@ -658,460 +113,15 @@
         </div>
     </div>
 
-    <!-- Libreria per QR Code Scanner -->
+    <!-- QR Code Scanner lib -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-    <script>
-        // ========== CONFIGURAZIONE LOGIN ==========
-        const VALID_USERS = {
-            "marketing@c2group.it": "evento123",
-            "enrico.demarco@c2group.it": "evento123",
-            "michele.mondoni@c2group.it": "evento123",
-            "giovanni.ginevra@c2group.it": "evento123",
-            "mattia.rossi@c2group.it": "evento123",
-            "nicola.roli@c2group.it": "evento123"
-        };
-
-        const TIMEOUT_MINUTES = 240; // 240 minuti = 4 ore
-        // ==========================================
-
-        let html5QrcodeScanner = null;
-        let isScanning = false;
-        let registeredCount = 0;
-        let scriptUrl = 'https://script.google.com/macros/s/AKfycbzGtj0YcvXINd1zVcVHGKRrOYjnQbhB_eyek0E3zHztRbxFmKx6udugsDbk--UJRTOS/exec';
-        let currentUser = '';
-        let currentEvent = ''; // Evento selezionato
-        let currentEventName = ''; // Nome completo evento
-        let lastActivityTime = Date.now();
-        let timeoutInterval = null;
-        let registeredLeads = []; // Array per memorizzare i lead registrati
-
-        // ========== GESTIONE LOGIN ==========
-
-        window.onload = function() {
-            // Controlla se c'è una sessione salvata
-            const savedUser = localStorage.getItem('loggedUser');
-            const savedTime = localStorage.getItem('loginTime');
-            const savedEvent = localStorage.getItem('selectedEvent');
-            const savedEventName = localStorage.getItem('selectedEventName');
-
-            if (savedUser && savedTime && savedEvent) {
-                const elapsedMinutes = (Date.now() - parseInt(savedTime)) / (1000 * 60);
-                
-                if (elapsedMinutes < TIMEOUT_MINUTES) {
-                    // Sessione valida
-                    currentUser = savedUser;
-                    currentEvent = savedEvent;
-                    currentEventName = savedEventName || savedEvent;
-                    showScanner();
-                    startTimeoutMonitor();
-                } else {
-                    // Sessione scaduta
-                    logout();
-                }
-            }
-        };
-
-        function handleLogin() {
-            const username = document.getElementById('loginUsername').value.trim().toLowerCase();
-            const password = document.getElementById('loginPassword').value;
-            const eventCode = document.getElementById('eventSelect').value;
-
-            if (!username || !password) {
-                showLoginStatus('Inserisci username e password', 'error');
-                return;
-            }
-
-            if (!eventCode) {
-                showLoginStatus('Seleziona un evento', 'error');
-                return;
-            }
-
-            if (VALID_USERS[username] && VALID_USERS[username] === password) {
-                // Login riuscito
-                currentUser = username;
-                currentEvent = eventCode;
-                currentEventName = document.getElementById('eventSelect').options[document.getElementById('eventSelect').selectedIndex].text;
-                
-                localStorage.setItem('loggedUser', username);
-                localStorage.setItem('selectedEvent', eventCode);
-                localStorage.setItem('selectedEventName', currentEventName);
-                localStorage.setItem('loginTime', Date.now().toString());
-                
-                showLoginStatus('✅ Accesso effettuato!', 'success');
-                
-                setTimeout(() => {
-                    showScanner();
-                    startTimeoutMonitor();
-                }, 1000);
-            } else {
-                showLoginStatus('❌ Credenziali non valide', 'error');
-            }
-        }
-
-        function showScanner() {
-            document.getElementById('loginContainer').classList.add('hidden');
-            document.getElementById('scannerArea').classList.add('show');
-            document.getElementById('scannerControls').style.display = 'block';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('currentUser').textContent = currentUser;
-            document.getElementById('operatorName').textContent = currentUser;
-            
-            // Mostra nome evento nell'header
-            document.getElementById('eventTitle').textContent = currentEventName;
-            
-            // Carica lead salvati per questo evento
-            loadLeadsFromStorage();
-        }
-
-        function logout() {
-            localStorage.removeItem('loggedUser');
-            localStorage.removeItem('loginTime');
-            localStorage.removeItem('selectedEvent');
-            localStorage.removeItem('selectedEventName');
-            // NON rimuoviamo registeredLeads per mantenerli anche dopo logout
-            clearInterval(timeoutInterval);
-            
-            // Reset interfaccia
-            document.getElementById('loginContainer').classList.remove('hidden');
-            document.getElementById('scannerArea').classList.remove('show');
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('eventSelect').value = '';
-            
-            if (isScanning) {
-                stopScanner();
-            }
-            
-            currentUser = '';
-            currentEvent = '';
-            currentEventName = '';
-            showLoginStatus('Logout effettuato', 'info');
-        }
-
-        function startTimeoutMonitor() {
-            // Aggiorna timestamp attività
-            document.addEventListener('click', updateActivity);
-            document.addEventListener('keypress', updateActivity);
-            document.addEventListener('touchstart', updateActivity);
-
-            // Controlla timeout ogni minuto
-            timeoutInterval = setInterval(() => {
-                const elapsedMinutes = (Date.now() - lastActivityTime) / (1000 * 60);
-                
-                if (elapsedMinutes >= TIMEOUT_MINUTES) {
-                    alert('Sessione scaduta per inattività. Effettua nuovamente il login.');
-                    logout();
-                }
-            }, 60000); // Controlla ogni minuto
-        }
-
-        function updateActivity() {
-            lastActivityTime = Date.now();
-            localStorage.setItem('loginTime', Date.now().toString());
-        }
-
-        function showLoginStatus(message, type) {
-            const statusEl = document.getElementById('loginStatus');
-            statusEl.textContent = message;
-            statusEl.className = 'status status-' + type + ' show';
-            
-            setTimeout(() => {
-                statusEl.classList.remove('show');
-            }, 3000);
-        }
-
-        // ========== SCANNER ==========
-
-        function startScanner() {
-            if (!scriptUrl) {
-                showStatus('Configura prima l\'URL dello script', 'error');
-                return;
-            }
-
-            if (isScanning) return;
-
-            html5QrcodeScanner = new Html5Qrcode("reader");
-            
-            const config = {
-                fps: 10,
-                qrbox: { width: 250, height: 250 },
-                aspectRatio: 1.0
-            };
-
-            html5QrcodeScanner.start(
-                { facingMode: "environment" },
-                config,
-                onScanSuccess,
-                onScanError
-            ).then(() => {
-                isScanning = true;
-                document.getElementById('startButton').style.display = 'none';
-                document.getElementById('stopButton').style.display = 'block';
-                showStatus('📷 Scanner attivo. Inquadra il QR Code.', 'info');
-            }).catch(err => {
-                showStatus('❌ Errore avvio scanner: ' + err, 'error');
-            });
-        }
-
-        function stopScanner() {
-            if (!isScanning || !html5QrcodeScanner) return;
-
-            html5QrcodeScanner.stop().then(() => {
-                isScanning = false;
-                document.getElementById('startButton').style.display = 'block';
-                document.getElementById('stopButton').style.display = 'none';
-                showStatus('⏹️ Scanner fermato', 'info');
-            }).catch(err => {
-                console.error('Errore stop scanner:', err);
-            });
-        }
-
-        function onScanSuccess(decodedText) {
-            stopScanner();
-            registerAttendance(decodedText);
-        }
-
-        function onScanError(error) {
-            // Ignora errori normali di scansione
-        }
-
-        // ========== REGISTRAZIONE PRESENZE ==========
-
-        async function registerAttendance(email) {
-            if (!scriptUrl) {
-                showStatus('Configura prima l\'URL dello script', 'error');
-                return;
-            }
-
-            if (!currentEvent) {
-                showStatus('❌ Evento non selezionato!', 'error');
-                return;
-            }
-
-            updateActivity();
-
-            showLoader(true);
-            showStatus('⏳ Registrazione in corso...', 'info');
-
-            try {
-                // Usa GET con parametri URL invece di POST per evitare CORS preflight
-                const url = new URL(scriptUrl);
-                url.searchParams.append('email', email.trim().toLowerCase());
-                url.searchParams.append('event', currentEvent);
-                url.searchParams.append('operator', currentUser);
-
-                const response = await fetch(url.toString(), {
-                    method: 'GET'
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    registeredCount++;
-                    updateStats(email);
-                    showStatus(`✅ Presenza registrata per: ${email}`, 'success');
-                } else {
-                    showStatus(`⚠️ ${result.message}`, 'warning');
-                }
-                
-                setTimeout(() => {
-                    if (!isScanning) {
-                        startScanner();
-                    }
-                }, 2000);
-
-            } catch (error) {
-                showStatus('❌ Errore registrazione: ' + error.message, 'error');
-                console.error('Errore:', error);
-            } finally {
-                showLoader(false);
-            }
-        }
-
-        function registerManualEmail() {
-            const email = document.getElementById('emailInput').value.trim();
-            
-            if (!email) {
-                showStatus('Inserisci un\'email valida', 'error');
-                return;
-            }
-
-            if (!email.includes('@')) {
-                showStatus('Formato email non valido', 'error');
-                return;
-            }
-
-            registerAttendance(email);
-            document.getElementById('emailInput').value = '';
-        }
-
-        function toggleManualInput() {
-            const manualInput = document.getElementById('manualInput');
-            manualInput.classList.toggle('show');
-        }
-
-        // ========== UI HELPERS ==========
-
-        function showStatus(message, type) {
-            const statusEl = document.getElementById('statusMessage');
-            statusEl.textContent = message;
-            statusEl.className = 'status status-' + type + ' show';
-            
-            if (type !== 'info') {
-                setTimeout(() => {
-                    statusEl.classList.remove('show');
-                }, 5000);
-            }
-        }
-
-        function showLoader(show) {
-            const loader = document.getElementById('loader');
-            if (show) {
-                loader.classList.add('show');
-            } else {
-                loader.classList.remove('show');
-            }
-        }
-
-        function updateStats(email) {
-            document.getElementById('registeredCount').textContent = registeredCount;
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('it-IT');
-            document.getElementById('lastRegistered').textContent = timeStr;
-            
-            // Aggiungi lead alla lista
-            addLeadToList(email, now);
-        }
-
-        function addLeadToList(email, timestamp) {
-            // Verifica se il lead è già presente per QUESTO evento
-            const existingLead = registeredLeads.find(lead => 
-                lead.email === email && lead.event === currentEvent
-            );
-            if (existingLead) {
-                return; // Non aggiungere duplicati
-            }
-
-            // Aggiungi nuovo lead con info evento
-            const lead = {
-                email: email,
-                timestamp: timestamp,
-                timeString: timestamp.toLocaleString('it-IT'),
-                event: currentEvent,
-                eventName: currentEventName
-            };
-            
-            registeredLeads.unshift(lead); // Aggiungi in cima alla lista
-            
-            // Salva in localStorage per persistenza
-            localStorage.setItem('registeredLeads', JSON.stringify(registeredLeads));
-            
-            // Aggiorna la UI
-            renderLeadsList();
-        }
-
-        function renderLeadsList() {
-            const listContainer = document.getElementById('leadsList');
-            const leadsCountEl = document.getElementById('leadsCount');
-            
-            // Filtra solo i lead dell'evento corrente
-            const currentEventLeads = registeredLeads.filter(lead => lead.event === currentEvent);
-            
-            if (currentEventLeads.length === 0) {
-                listContainer.innerHTML = `
-                    <div class="empty-state">
-                        <p>📭 Nessuna presenza registrata ancora</p>
-                        <small>I lead per ${currentEventName} appariranno qui dopo la prima scansione</small>
-                    </div>
-                `;
-                leadsCountEl.textContent = 'Nessun lead registrato per questo evento';
-                return;
-            }
-
-            leadsCountEl.textContent = `${currentEventLeads.length} lead registrat${currentEventLeads.length === 1 ? 'o' : 'i'} per ${currentEventName}`;
-
-            let html = '';
-            currentEventLeads.forEach((lead, index) => {
-                html += `
-                    <div class="lead-item" data-email="${lead.email}">
-                        <div class="lead-info">
-                            <div class="lead-email">${lead.email}</div>
-                            <div class="lead-time">⏰ ${lead.timeString}</div>
-                        </div>
-                        <div class="lead-badge">✓ Presente</div>
-                    </div>
-                `;
-            });
-
-            listContainer.innerHTML = html;
-        }
-
-        function filterLeads() {
-            const searchTerm = document.getElementById('searchLeads').value.toLowerCase();
-            const leadItems = document.querySelectorAll('.lead-item');
-            let visibleCount = 0;
-
-            leadItems.forEach(item => {
-                const email = item.getAttribute('data-email').toLowerCase();
-                if (email.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            // Mostra messaggio se nessun risultato
-            const listContainer = document.getElementById('leadsList');
-            if (visibleCount === 0 && registeredLeads.length > 0) {
-                listContainer.innerHTML = `
-                    <div class="no-results">
-                        <p>🔍 Nessun risultato per "${document.getElementById('searchLeads').value}"</p>
-                        <small>Prova con un altro termine di ricerca</small>
-                    </div>
-                `;
-            } else if (visibleCount < registeredLeads.length && searchTerm) {
-                document.getElementById('leadsCount').textContent = `${visibleCount} di ${registeredLeads.length} lead trovati`;
-            } else {
-                document.getElementById('leadsCount').textContent = `${registeredLeads.length} lead registrat${registeredLeads.length === 1 ? 'o' : 'i'}`;
-            }
-        }
-
-        function loadLeadsFromStorage() {
-            const savedLeads = localStorage.getItem('registeredLeads');
-            if (savedLeads) {
-                registeredLeads = JSON.parse(savedLeads);
-                // Conta solo i lead dell'evento corrente
-                const currentEventLeads = registeredLeads.filter(lead => lead.event === currentEvent);
-                registeredCount = currentEventLeads.length;
-                document.getElementById('registeredCount').textContent = registeredCount;
-                renderLeadsList();
-            }
-        }
-
-        // ========== EVENT LISTENERS ==========
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const emailInput = document.getElementById('emailInput');
-            if (emailInput) {
-                emailInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        registerManualEmail();
-                    }
-                });
-            }
-
-            const loginPassword = document.getElementById('loginPassword');
-            if (loginPassword) {
-                loginPassword.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        handleLogin();
-                    }
-                });
-            }
-        });
-    </script>
+    <!-- App modules (ordine importante: config → ui → auth → scanner → registration → app) -->
+    <script src="js/config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/registration.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
