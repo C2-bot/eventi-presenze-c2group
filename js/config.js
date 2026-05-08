@@ -63,5 +63,6 @@ const CONFIG = {
             emailColumn: "E",
             presenzaColumn: "O",
             active: true
+        }
     }
 };
