@@ -3,7 +3,7 @@
  * Uso: npm run new-event
  *
  * Genera le istruzioni e i blocchi di codice da inserire
- * in config.js e apps-script/Code.js.
+ * in config.js e apps-script/Codice.js.
  */
 
 const readline = require('readline');
@@ -52,8 +52,8 @@ async function main() {
         console.log(frontendBlock);
     }
 
-    // --- Aggiorna apps-script/Code.js ---
-    const scriptPath = path.join(__dirname, '..', 'apps-script', 'Code.js');
+    // --- Aggiorna apps-script/Codice.js ---
+    const scriptPath = path.join(__dirname, '..', 'apps-script', 'Codice.js');
     let scriptContent = fs.readFileSync(scriptPath, 'utf8');
 
     const backendBlock = `  "${code}": {\n    name: "${name}",\n    sheetName: "${sheetName}",\n    emailColumn: "${emailCol}",\n    presenzaColumn: "${presenzaCol}"\n  }`;
