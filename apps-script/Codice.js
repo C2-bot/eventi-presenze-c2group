@@ -45,6 +45,12 @@ const EVENTS = {
     sheetName: "Iscrizioni Evento (IA Sicilia - Palermo)",
     emailColumn: "E",
     presenzaColumn: "O"
+  },
+  "ELPASSISI": {
+    name: "ELP - IT ADMIN | ASSISI",
+    sheetName: "Iscrizioni Evento (ELP - Assisi)",
+    emailColumn: "E",
+    presenzaColumn: "O"
   }
   // AGGIUNGI NUOVI EVENTI QUI:
   // "CODICE_EVENTO": {
