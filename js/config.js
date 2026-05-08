@@ -62,5 +62,6 @@ const CONFIG = {
             sheetName: "Iscrizioni Evento (ELP - Assisi)",
             emailColumn: "E",
             presenzaColumn: "O",
+            active: true
     }
 };
