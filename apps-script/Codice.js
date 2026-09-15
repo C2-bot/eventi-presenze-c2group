@@ -53,7 +53,7 @@ const EVENTS = {
     presenzaColumn: "O"
   },
   "APPRENDEREAI": {
-    name: "Apprendere oltre l'AI",
+    name: "Apprendere Oltre l'AI",
     sheetName: "Iscrizioni Evento (Apprendere Oltre IA)",
     emailColumn: "E",
     presenzaColumn: "O"
