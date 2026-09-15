@@ -63,6 +63,12 @@ const CONFIG = {
             emailColumn: "E",
             presenzaColumn: "O",
             active: true
-        }
+        },
+        "APPRENDEREAI": {
+            name: "Apprendere Oltre l'AI",
+            sheetName: "Iscrizioni Evento (Apprendere Oltre IA)",
+            emailColumn: "E",
+            presenzaColumn: "O",
+            active: true
     }
 };
