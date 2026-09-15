@@ -51,6 +51,12 @@ const EVENTS = {
     sheetName: "Iscrizioni Evento (ELP - Assisi)",
     emailColumn: "E",
     presenzaColumn: "O"
+  },
+  "APPRENDEREAI": {
+    name: "Apprendere oltre l'AI",
+    sheetName: "Iscrizioni Evento (Apprendere Oltre IA)",
+    emailColumn: "E",
+    presenzaColumn: "O"
   }
   // AGGIUNGI NUOVI EVENTI QUI:
   // "CODICE_EVENTO": {
