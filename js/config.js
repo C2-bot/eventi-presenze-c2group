@@ -10,7 +10,7 @@
 
 const CONFIG = {
     // URL del Google Apps Script deployment
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzGtj0YcvXINd1zVcVHGKRrOYjnQbhB_eyek0E3zHztRbxFmKx6udugsDbk--UJRTOS/exec',
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwaF1Hgul6p12knbf-kltfSVrAczW7-sp4x_Lwffw7_Y7QR0vwcBiBX1u9PvdgnB5Y/exec',
 
     // Timeout sessione in minuti
     SESSION_TIMEOUT_MINUTES: 240,
