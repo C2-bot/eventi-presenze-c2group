@@ -10,7 +10,7 @@
 
 const CONFIG = {
     // URL del Google Apps Script deployment
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwaF1Hgul6p12knbf-kltfSVrAczW7-sp4x_Lwffw7_Y7QR0vwcBiBX1u9PvdgnB5Y/exec',
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxYxvF1pX9Hi1iLokfVtVd4mOGLXjMs_KRPhAR5JOru7oi-I4Z3pJzodjZHj_00NhG9/exec',
 
     // Timeout sessione in minuti
     SESSION_TIMEOUT_MINUTES: 240,
@@ -70,6 +70,12 @@ const CONFIG = {
             emailColumn: "E",
             presenzaColumn: "O",
             active: true
+        },
+        "IAADESSO": {
+            name: "IA Adesso",
+            sheetName: "Iscrizioni Evento (IA Adesso)",
+            emailColumn: "E",
+            presenzaColumn: "O",
+            active: true
         }
-    }
 };
