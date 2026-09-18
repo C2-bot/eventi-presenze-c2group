@@ -57,7 +57,13 @@ const EVENTS = {
     sheetName: "Iscrizioni Evento (Apprendere Oltre IA)",
     emailColumn: "E",
     presenzaColumn: "O"
-  }
+  },
+  "IAADESSO"; {
+    name: "IA Adesso",
+    sheetName: "Iscrizioni Evento (IA Adesso)",
+    emailColumn: "E",
+    presenzaColumn: "O"
+}
   // AGGIUNGI NUOVI EVENTI QUI:
   // "CODICE_EVENTO": {
   //   name: "Nome Completo Evento",
