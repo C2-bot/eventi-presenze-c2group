@@ -77,5 +77,12 @@ const CONFIG = {
             emailColumn: "E",
             presenzaColumn: "O",
             active: true
+        },
+        "CAL-IA": {
+            name: "CAL-IA",
+            sheetName: "Iscrizioni Evento (CAL-IA)",
+            emailColumn: "E",
+            presenzaColumn: "O",
+            active: true
         }
 };
