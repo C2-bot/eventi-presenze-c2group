@@ -58,12 +58,18 @@ const EVENTS = {
     emailColumn: "E",
     presenzaColumn: "O"
   },
-  "IAADESSO"; {
+  "IAADESSO": {
     name: "IA Adesso",
     sheetName: "Iscrizioni Evento (IA Adesso)",
     emailColumn: "E",
     presenzaColumn: "O"
-}
+  },
+  "CAL-IA": {
+    name: "CAL-IA",
+    sheetName: "Iscrizioni Evento (CAL-IA)",
+    emailColumn: "E",
+    presenzaColumn: "O"
+  }
   // AGGIUNGI NUOVI EVENTI QUI:
   // "CODICE_EVENTO": {
   //   name: "Nome Completo Evento",
@@ -71,7 +77,7 @@ const EVENTS = {
   //   emailColumn: "E",
   //   presenzaColumn: "O"
   // }
-};
+}
 // ==========================================
 
 
