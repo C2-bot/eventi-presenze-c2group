@@ -85,4 +85,5 @@ const CONFIG = {
             presenzaColumn: "O",
             active: true
         }
+    }
 };
